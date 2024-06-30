@@ -15,3 +15,7 @@ def api_home(request):
   if instance:
     data = ProductSerializer(instance).data
   return Response(data)
+
+@api_view(["GET"])
+def index(request):
+  return Response({"data":[{"name":"naol"}, {"name":"hana"}]})
