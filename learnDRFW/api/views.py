@@ -16,6 +16,11 @@ def api_home(request):
     data = ProductSerializer(instance).data
   return Response(data)
 
-@api_view(["GET"])
-def index(request):
-  return Response({"data":[{"name":"naol"}, {"name":"hana"}]})
+@api_view(["POST"])
+def echo(request):
+  serializer = ProductSerializer(data=request.data)
+  if serializer.is_valid(raise_exception=True):
+    instance = serializer.save()
+    print(instance)
+    return Response(serializer.data)
+  return Response({"invalid": "not good data"})
