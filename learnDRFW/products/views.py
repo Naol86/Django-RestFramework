@@ -1,8 +1,9 @@
-from rest_framework import generics, mixins, viewsets, permissions
+from rest_framework import generics, mixins, viewsets, permissions, authentication
 
 from .models import Product
 from .serializers import ProductSerializer
 
+from .permissions import IsStaffEditorPermission
 
 class ProductMixins(
   # viewsets.GenericViewSet,
@@ -17,8 +18,8 @@ class ProductMixins(
   queryset = Product.objects.all()
   serializer_class = ProductSerializer
   lookup_field = 'pk'
-  authentication_classes = [auth]
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  authentication_classes = [authentication.SessionAuthentication]
+  permission_classes = [permissions.IsAdminUser ,IsStaffEditorPermission]
   
   # def get(self, request, *args, **kwargs):
   #   pk = kwargs.get('pk')
