@@ -8,6 +8,7 @@ from .models import Employee, Position
 class EmployeeListView(viewsets.ModelViewSet):
   queryset = Employee.objects.all()
   serializer_class = EmployeeSerializer
+  lookup_field = 'pk'
 
 class PositionViewList(viewsets.ModelViewSet):
   queryset = Position.objects.all()

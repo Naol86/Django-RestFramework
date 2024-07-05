@@ -7,6 +7,11 @@ class PositionSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'parent', 'children']
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    position_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Employee
-        fields = ['id', 'name', 'position']
+        fields = ['id', 'name', 'position', 'position_name']
+    
+    def get_position_name(self, obj):
+        return obj.position.name
